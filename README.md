@@ -93,8 +93,8 @@ Validaciones centralizadas
 
 Acceso a datos mediante Entity Framework Core
 
-### 🛠️ Tecnologías utilizadas
-#### Backend
+## 🛠️ Tecnologías utilizadas
+### Backend
 
 C#
 
@@ -108,7 +108,7 @@ Identity
 
 Localización (Inglés y Español con IStringLocalizer)
 
-#### Frontend
+### Frontend
 
 Razor Views
 
@@ -126,7 +126,7 @@ Chart.js
 
 Git / GitHub
 
-🚧 Estado del proyecto
+## 🚧 Estado del proyecto
 
 El proyecto está en desarrollo. Las próximas etapas incluyen:
 
@@ -138,6 +138,6 @@ Implementar exportación a Excel
 
 Optimizar UX/UI
 
-### 📄 Licencia
+## 📄 Licencia
 
 Proyecto personal con fines educativos y profesionales.
