@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = localizer["ViewTitle"];
+    var labels = Model.Select(x => x.Category).ToArray();
+    var values = Model.Select(x => x.Total).ToArray();
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div style="width: 600px">
+    <canvas id="EXPENSE_CHART"></canvas>
+</div>
+
+<script>
+    const ctx = document.getElementById("EXPENSE_CHART")
+
+    const chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(labels)),
+            datasets: [{
+                label: '@localizer["ExpenseByCategoryChartLabel"]',
+                data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(values)),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+

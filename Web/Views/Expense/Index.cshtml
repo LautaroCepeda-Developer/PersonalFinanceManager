@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Web.DTOs.Expense
+@inject IViewLocalizer localizer
+
+@model Web.ViewModels.ExpensesIndexViewModel
+@{
+    ViewData["Title"] = localizer["ViewTitle"];
+}
+<h2>@localizer["ViewTitle"]</h2>
+
+<form method="get" asp-action="Index">
+    <div class="d-flex gap-2 my-2">
+        <div class="d-flex flex-column align-items-start justify-content-center">
+            <label asp-for="CategoryId">@localizer["CategorySelectLabel"]</label>
+            <select asp-for="CategoryId" class="form-select">
+                <option value="">@localizer["AllCategoriesOption"]</option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+        </div>
+        <div class="d-flex flex-column align-items-start justify-content-center">
+            <label asp-for="From">@localizer["FromInputLabel"]</label>
+            <input asp-for="From" class="form-control" type="date" name="from" value="@Model.From" />
+        </div>
+        <div class="d-flex flex-column align-items-start justify-content-center">
+            <label asp-for="To">@localizer["ToInputLabel"]</label>
+            <input asp-for="To" class="form-control" type="date" name="to" value="@Model.To" />
+        </div>
+    </div>
+
+    <div class="d-flex gap-2"> 
+        <button type="submit" class="btn btn-primary">@localizer["FilterButton"]</button>
+        <a asp-controller="Expense" asp-action="Index" class="btn btn-outline-secondary">@localizer["CleanFiltersButton"]</a>
+        <a asp-controller="Expense" asp-action="Create" class="btn btn-success">@localizer["NewExpenseButton"]</a>
+    </div>
+</form>
+
+<p>Total: <strong>$ @decimal.Parse(Model.TotalAmount.ToString("C"), System.Globalization.NumberStyles.Currency)</strong></p>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>@localizer["DateTableHeader"]</th>
+            <th>@localizer["DescriptionTableHeader"]</th>
+            <th>@localizer["CategoryTableHeader"]</th>
+            <th>@localizer["AmountTableHeader"]</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ExpenseDTO exp in Model.Expenses)
+        {
+            <tr>
+                <td class="align-middle">@exp.Date.ToShortDateString()</td>
+                <td class="align-middle">@exp.Description</td>
+                <td class="align-middle">@exp.Category?.Name</td>
+                <td class="align-middle">$ @exp.Amount.ToString("N")</td>
+                <td class="align-middle">
+                    <a class="btn btn-warning px-3" asp-action="Edit" asp-route-id="@exp.Id">@localizer["EditExpenseButton"]</a>
+                </td>
+                <td class="align-middle">
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@exp.Id">@localizer["DeleteExpenseButton"]</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

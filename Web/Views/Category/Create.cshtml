@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+@using Web.DTOs.Category
+@model CategoryCreateDTO
+
+@{
+    ViewData["Title"] = localizer["ViewTitle"];
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="@ViewContext.RouteData.Values["Action"]">
+    <div class="mb-3">
+        <label asp-for="Name">@localizer["NameInputLabel"]</label>
+        <input type="text" asp-for="Name" placeholder="@localizer["NameInputPlaceholder"]" class="form-control"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">@localizer["SaveCategoryButton"]</button>
+    <a asp-action="Index" class="btn btn-secondary">@localizer["CancelButton"]</a>
+</form>

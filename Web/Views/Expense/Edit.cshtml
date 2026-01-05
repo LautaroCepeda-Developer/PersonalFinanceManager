@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+@using Web.ViewModels
+@model ExpenseUpdateViewModel
+@{
+    ViewData["Title"] = localizer["ViewTitle"];
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<form asp-action="Edit" method="post" class="row g-3">
+    <div class="col-md-6">
+        <label asp-for="Expense.Description" class="form-label">@localizer["DescriptionInputLabel"]</label>
+        <input asp-for="Expense.Description" class="form-control" placeholder="@localizer["DescriptionInputPlaceholder"]" />
+        <span asp-validation-for="Expense.Description" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-3">
+        <label asp-for="Expense.Amount" class="form-label">@localizer["AmountInputLabel"]</label>
+        <input asp-for="Expense.Amount" type="number" step="0.01" class="form-control" placeholder="@localizer["AmountInputPlaceholder"]" />
+        <span asp-validation-for="Expense.Amount" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-3">
+        <label asp-for="Expense.Date" class="form-label">@localizer["DateInputLabel"]</label>
+        <input asp-for="Expense.Date" class="form-control" placeholder="@localizer["DateInputPlaceholder"]" type="date" />
+        <span asp-validation-for="Expense.Date" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="Expense.CategoryId" class="form-label">@localizer["CategoryInputLabel"]</label>
+        <select asp-for="Expense.CategoryId" class="form-control" asp-items="@Model.Categories">
+            <option value="">@localizer["SelectCategoryOption"]</option>
+        </select>
+        <span asp-validation-for="Expense.CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="d-flex gap-3 col-12">
+        <button type="submit" class="btn btn-primary">@localizer["SaveButton"]</button>
+        <a asp-action="Index" class="btn btn-secondary">@localizer["CancelButton"]</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+@using Web.DTOs.Expense
+@model ExpenseDTO
+
+@{
+    ViewData["Title"] = localizer["ViewTitle"];
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>@localizer["DeleteConfirmationText"]</p>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <span asp-validation-for="Id" class="text-danger d-block mb-2"></span>
+    <button class="btn btn-danger">@localizer["DeleteExpenseButton"]</button>
+    <a asp-action="Index" class="btn btn-secondary">@localizer["CancelDeleteButton"]</a>
+</form>
