@@ -117,10 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ExpenseByCategoryChartLabel" xml:space="preserve">
-    <value>Expenses by category</value>
+  <data name="Chart01Title" xml:space="preserve">
+    <value>Expenses by category (current month)</value>
+  </data>
+  <data name="Chart02DatasetLabel" xml:space="preserve">
+    <value>Daily expenses</value>
+  </data>
+  <data name="Chart02Title" xml:space="preserve">
+    <value>Evolution of expenses (last 30 days)</value>
+  </data>
+  <data name="Chart03Title" xml:space="preserve">
+    <value>Monthly expenses (last 12 months)</value>
   </data>
   <data name="ViewTitle" xml:space="preserve">
     <value>Dashboard</value>
+  </data>
+  <data name="Chart03DatasetLabel" xml:space="preserve">
+    <value>Monthly expenses</value>
   </data>
 </root>

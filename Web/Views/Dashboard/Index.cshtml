@@ -1,42 +1,133 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
-@model IEnumerable<dynamic>
+@using Web.ViewModels
+@model DashboardViewModel
 
 @{
     ViewData["Title"] = localizer["ViewTitle"];
-    var labels = Model.Select(x => x.Category).ToArray();
-    var values = Model.Select(x => x.Total).ToArray();
 }
 
 <h2>@ViewData["Title"]</h2>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<div style="width: 600px">
-    <canvas id="EXPENSE_CHART"></canvas>
+<style>
+canvas {
+    max-width: 100%;
+}
+
+.card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.chart-small {
+    height: 300px;
+}
+
+.chart-large {
+    height: 400px;
+}
+
+</style>
+
+<div class="container-fluid p-0">
+    <div class="row g-5">
+        <!-- Chart 01 -->
+        <div class="col-12 col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <p>@localizer["Chart01Title"]</p>
+                    <canvas class="chart-small" id="EXPENSE_CHART_01"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart 02 -->
+        <div class="col-12 col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <p>@localizer["Chart02Title"]</p>
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <canvas class="chart-small" id="EXPENSE_CHART_02"></canvas>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart 03 -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <p>@localizer["Chart03Title"]</p>
+                    <canvas class="chart-large" id="EXPENSE_CHART_03"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-    const ctx = document.getElementById("EXPENSE_CHART")
+    function generateColors(count) {
+        return Array.from({ length: count }, () =>
+        `hsl(${Math.random() * 360}, 70%, 55%)`
+        );
+    }
 
-    const chart = new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(labels)),
-            datasets: [{
-                label: '@localizer["ExpenseByCategoryChartLabel"]',
-                data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(values)),
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    const chart01 = document.getElementById("EXPENSE_CHART_01");
+    const chart02 = document.getElementById("EXPENSE_CHART_02");
+    const chart03 = document.getElementById("EXPENSE_CHART_03");
+
+    // Chart 01
+    const chart01Labels = @Html.Raw(Json.Serialize(Model.ExpensesByCategory.Select(x => x.Category)));
+    const chart01Data = {
+        labels: chart01Labels,
+        datasets: [{
+            data: @Html.Raw(Json.Serialize(Model.ExpensesByCategory.Select(x=>x.Total))),
+            backgroundColor: generateColors(chart01Labels.length)
+        }]
+    }
+    
+    // Chart 02
+    const chart02Labels = @Html.Raw(Json.Serialize(Model.DailyExpenses.Select(x => x.Date.ToString("dd MMM yyy"))));
+    const chart02Data = {
+        labels: chart02Labels,
+        datasets: [{
+            label: "@localizer["Chart02DatasetLabel"]",
+            data: @Html.Raw(Json.Serialize(Model.DailyExpenses.Select(x=>x.Total)))
+        }],
+        borderWidth: 2,
+        fill: true,
+        tension: 0.3
+    }
+
+    //Chart 03
+    const chart03RawData = @Html.Raw(Json.Serialize(
+        Model.MonthlyExpenses.Select(x => new {
+        year = x.Year,
+        month = x.Month,
+        total = x.Total
+        })
+    ));
+    const chart03Labels = chart03RawData.map(x =>
+        new Date(x.year, x.month - 1)
+        .toLocaleString("default", { month: "short", year: "numeric" })
+    );
+
+    const chart03Data = {
+        labels: chart03Labels,
+        datasets: [{
+            label: "@localizer["Chart03DatasetLabel"]",
+            data: @Html.Raw(Json.Serialize(Model.MonthlyExpenses.Select(x => x.Total))),
+            backgroundColor: generateColors(chart03Labels.length)
+        }]
+    }
+    
+    new Chart(chart01, { type: 'doughnut', data: chart01Data, options: {responsive: true}});
+    new Chart(chart02, { type: 'line', data: chart02Data, options: {responsive: true}});
+    new Chart(chart03, { type: 'bar', data: chart03Data , options: {responsive:true, scales:{y:{beginAtZero:true}}}});
 </script>
 

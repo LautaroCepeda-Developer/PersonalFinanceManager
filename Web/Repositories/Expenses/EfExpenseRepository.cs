@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq.Expressions;
 using Web.Data;
+using Web.DTOs.Graphics;
 using Web.Models;
 
 namespace Web.Repositories.Expenses
@@ -62,6 +63,44 @@ namespace Web.Repositories.Expenses
                 .ToListAsync();
 
             return query.Select(x => (Label: CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(x.Month), Amount: x.Total));
+        }
+
+        public async Task<IEnumerable<ExpensesByCategoryDTO>> GetExpensesByCategoryAsync(string userId, DateTime from, DateTime to)
+        {
+            return await _db.Expenses.Where(e => e.UserId == userId && e.Date >= from && e.Date <= to)
+                .GroupBy(e => e.Category!.Name)
+                .Select(g => new ExpensesByCategoryDTO
+                {
+                    Category = g.Key,
+                    Total = g.Sum(x => x.Amount)
+                })
+                .OrderByDescending(x => x.Total)
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<DailyExpensesDTO>> GetDailyExpensesAsync(string userId, DateTime from, DateTime to)
+        {
+            return await _db.Expenses.Where(e => e.UserId == userId && e.Date >= from && e.Date <= to)
+                .GroupBy(e => e.Date.Date)
+                .Select(g => new DailyExpensesDTO
+                {
+                    Date = g.Key,
+                    Total = g.Sum(x => x.Amount)
+                })
+                .OrderBy(x => x.Date)
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<MonthlyExpensesDTO>> GetMonthlyExpensesAsync(string userId, DateTime from, DateTime to)
+        {
+            return await _db.Expenses.Where(e => e.UserId == userId && e.Date >= from && e.Date <= to)
+                .GroupBy(e => new { e.Date.Year, e.Date.Month })
+                .Select(g => new MonthlyExpensesDTO
+                {
+                    Year = g.Key.Year,
+                    Month = g.Key.Month,
+                    Total = g.Sum(x => x.Amount)
+                })
+                .OrderBy(x => x.Year).ThenBy(x => x.Month)
+                .ToListAsync();
         }
 
         public async Task<int> SaveChangesAsync() => await _db.SaveChangesAsync();

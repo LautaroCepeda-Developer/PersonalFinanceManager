@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Web.DTOs;
 using Web.DTOs.Expense;
+using Web.DTOs.Graphics;
 using Web.Models;
 using Web.Repositories.Expenses;
 
@@ -58,6 +59,60 @@ namespace Web.Services
 
         public async Task<IEnumerable<(string Label, decimal Amount)>> GetMonthlyTotalsAsync(string userId, int year)
             => await _repo.GetMonthlyTotalsAsync(userId, year);
+
+        public async Task<IEnumerable<ExpensesByCategoryDTO>> GetCurrentMonthExpensesByCategoryAsync(string userId)
+        {
+            var now = DateTime.UtcNow;
+            var from = new DateTime(now.Year, now.Month, 1,0,0,0, DateTimeKind.Utc);
+            var to = from.AddMonths(1).AddSeconds(-1);
+
+            return await _repo.GetExpensesByCategoryAsync(userId, from, to);
+        }
+
+        public async Task<IEnumerable<DailyExpensesDTO>> GetLast30DaysExpensesAsync(string userId)
+        {
+            var today = DateTime.UtcNow.Date;
+            var from = today.AddDays(-29); // Last 30 days includes today
+
+            var rawData = await _repo.GetDailyExpensesAsync(userId, from, today);
+
+            var result = Enumerable.Range(0, 30).Select(i =>
+            {
+                var date = from.AddDays(i);
+                var day = rawData.FirstOrDefault(d => d.Date == date);
+
+                return new DailyExpensesDTO
+                {
+                    Date = date,
+                    Total = day?.Total ?? 0
+                };
+            }).ToList();
+
+            return result;
+        }
+
+        public async Task<IEnumerable<MonthlyExpensesDTO>> GetLast12MonthsExpensesAsync(string userId)
+        {
+            var now = DateTime.UtcNow;
+            var from = new DateTime(now.Year, now.Month, 1).AddMonths(-11); // Last 12 months includes current month
+            var to = from.AddMonths(12).AddDays(-1);
+
+            var rawData = await _repo.GetMonthlyExpensesAsync(userId, from, now);
+
+            var result = Enumerable.Range(0, 12).Select(i =>
+            {
+                var date = from.AddMonths(i);
+
+                var monthData = rawData.FirstOrDefault(m => m.Year == date.Year && m.Month == date.Month);
+                return new MonthlyExpensesDTO
+                {
+                    Year = date.Year,
+                    Month = date.Month,
+                    Total = monthData?.Total ?? 0
+                };
+            }).ToList();
+            return result;
+        }
 
         public async Task<OperationResult> UpdateExpenseAsync(ExpenseUpdateDTO dto)
         {

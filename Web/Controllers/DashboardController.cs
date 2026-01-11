@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Web.Services;
+using Web.ViewModels;
 
 namespace Web.Controllers
 {
@@ -14,19 +15,20 @@ namespace Web.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
-            var expenses = await _expenseService.GetUserExpensesAsync(user!.Id);
-            var grouped = expenses
-                .GroupBy(e => e.Category!.Name)
-                .Select(g => new
-                {
-                    Category = g.Key,
-                    Total = g.Sum(e => e.Amount)
-                })
-                .ToList();
 
-            return View(grouped);
+            var expensesByCategory = await _expenseService.GetCurrentMonthExpensesByCategoryAsync(user!.Id);
+
+            var dailyExpenses = await _expenseService.GetLast30DaysExpensesAsync(user.Id);
+
+            var monthlyExpenses = await _expenseService.GetLast12MonthsExpensesAsync(user.Id);
+
+            var viewModel = new DashboardViewModel
+            {
+                ExpensesByCategory = expensesByCategory,
+                DailyExpenses = dailyExpenses,
+                MonthlyExpenses = monthlyExpenses
+            };
+            return View(viewModel);
         }
-
-
     }
 }
