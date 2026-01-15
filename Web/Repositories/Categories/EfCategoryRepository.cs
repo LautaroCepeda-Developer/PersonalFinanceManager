@@ -13,6 +13,8 @@ namespace Web.Repositories.Categories
 
         public IQueryable<Category> Query() => _db.Categories.AsQueryable();
 
+        public async Task<IEnumerable<Category>> GetSoftDeletedByUserIdAsync(string userId) => await _db.Categories.Where(c => c.UserId == userId && c.IsDeleted).ToListAsync();
+
         public async Task<Category?> GetByIdAsync(int id) => await _db.Categories.FirstOrDefaultAsync(c => c.Id == id);
 
         public async Task<IEnumerable<Category>> ListAsync(Expression<Func<Category, bool>>? predicate = null)
@@ -43,5 +45,6 @@ namespace Web.Repositories.Categories
         }
 
         public async Task<int> SaveChangesAsync() => await _db.SaveChangesAsync();
+
     }
 }

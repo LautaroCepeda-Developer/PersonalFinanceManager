@@ -162,4 +162,10 @@
   <data name="ExpenseNotFoundError" xml:space="preserve">
     <value>The expense was not found. ({0})</value>
   </data>
+  <data name="CategoryNotDeletedError" xml:space="preserve">
+    <value>Category with name '{0}' isn't deleted, so couldn't be restored.</value>
+  </data>
+  <data name="CategoryRestoredSuccess" xml:space="preserve">
+    <value>The category was restored succesfully.</value>
+  </data>
 </root>

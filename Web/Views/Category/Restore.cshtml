@@ -2,17 +2,13 @@
 @inject IViewLocalizer localizer
 @using Web.DTOs.Category
 @model List<CategoryDTO>
+@using Web.DTOs
 
 @{
     ViewData["Title"] = localizer["ViewTitle"];
 }
 
 <h2 class="mb-3">@ViewData["Title"]</h2>
-<div class="d-flex flex-row w-100 p-0 m-0 justify-content-between">
-    <a asp-action="Create" class="btn btn-primary">@localizer["NewCategoryButton"]</a>
-    <a asp-action="Restore" class="btn btn-dark">@localizer["RestoreButton"]</a>
-</div>
-
 
 <table class="table mt-3">
     <thead>
@@ -27,8 +23,11 @@
             <tr>
                 <td class="align-middle">@category.Name</td>
                 <td class="align-middle">
-                    <a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@category.Id">@localizer["EditCategoryButton"]</a>
-                    <a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@category.Id">@localizer["DeleteCategoryButton"]</a>
+                    <form asp-action="Restore" asp-route-id="@category.Id" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-primary">@localizer["RestoreCategoryButton"]</button>
+                    </form>
+
                 </td>
             </tr>
         }

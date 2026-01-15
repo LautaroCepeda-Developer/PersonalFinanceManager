@@ -47,7 +47,7 @@ namespace Web.Controllers
 
             if (result.IsRestored)
             {
-                TempData["RestoredMessage"] = JsonSerializer.Serialize(new TempDataAlert { Message = result.Message!, Type = TempDataAlert.AlertType.Sucess });
+                TempData["LayoutAlert"] = JsonSerializer.Serialize(new TempDataAlert { Message = result.Message!, Type = TempDataAlert.AlertType.Sucess });
             }
 
             return RedirectToAction(nameof(Index));
@@ -80,7 +80,7 @@ namespace Web.Controllers
 
             if (result.IsRestored)
             {
-                TempData["RestoredMessage"] = JsonSerializer.Serialize(new TempDataAlert { Message = result.Message!, Type = TempDataAlert.AlertType.Info });
+                TempData["LayoutAlert"] = JsonSerializer.Serialize(new TempDataAlert { Message = result.Message!, Type = TempDataAlert.AlertType.Info });
             }
 
             return RedirectToAction(nameof(Index));
@@ -93,11 +93,30 @@ namespace Web.Controllers
 
             return View(category);
         }
-
+        
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
             await _service.DeleteCategoryByIdAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
+        public async Task<IActionResult> Restore()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var categories = await _service.GetUserSoftDeletedCategoriesAsync(user!.Id);
+            return View(categories);
+        }
+
+        [HttpPost, ActionName("Restore")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RestoreCategory(int id)
+        {
+            var result = await _service.RestoreCategoryAsync(id);
+
+            TempData["LayoutAlert"] = JsonSerializer.Serialize(new TempDataAlert { Message = result.Message!, Type = TempDataAlert.AlertType.Sucess });
             return RedirectToAction(nameof(Index));
         }
     }

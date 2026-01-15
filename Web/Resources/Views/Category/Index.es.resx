@@ -132,4 +132,7 @@
   <data name="DeleteCategoryButton" xml:space="preserve">
     <value>Eliminar</value>
   </data>
+  <data name="RestoreButton" xml:space="preserve">
+    <value>Restaurar</value>
+  </data>
 </root>

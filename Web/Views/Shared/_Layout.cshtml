@@ -6,10 +6,10 @@
 @using Web.DTOs
 
 @{
-    var restoredJson = TempData["RestoredMessage"] as string;
+    var alert = TempData["LayoutAlert"] as string;
 
-    TempDataAlert? restoredAlert = restoredJson is null ? null
-    : System.Text.Json.JsonSerializer.Deserialize<TempDataAlert>(restoredJson);
+    TempDataAlert? genericAlert = alert is null ? null
+    : System.Text.Json.JsonSerializer.Deserialize<TempDataAlert>(alert);
 }
 
 <!DOCTYPE html>
@@ -64,10 +64,10 @@
 
     <div class="container">
         <main role="main" class="pb-3">
-            @if (restoredAlert is not null)
+            @if (genericAlert is not null)
             {
-                <div class="alert alert-@restoredAlert.Type.Value">
-                    @restoredAlert.Message
+                <div class="alert alert-@genericAlert.Type.Value">
+                    @genericAlert.Message
                 </div>
             }
             @RenderBody()

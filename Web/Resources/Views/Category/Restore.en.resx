@@ -117,55 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AmountRangeError" xml:space="preserve">
-    <value>El monto debe ser mayor a cero.</value>
+  <data name="NameTableHeader" xml:space="preserve">
+    <value>Name</value>
   </data>
-  <data name="AmountRequiredError" xml:space="preserve">
-    <value>El monto es obligatorio.</value>
+  <data name="RestoreCategoryButton" xml:space="preserve">
+    <value>Restore</value>
   </data>
-  <data name="CategoryAlreadyExistsError" xml:space="preserve">
-    <value>Ya existe una categoría con el nombre '{0}'</value>
-  </data>
-  <data name="CategoryNotFoundError" xml:space="preserve">
-    <value>La categoría no fue encontrada. ({0})</value>
-  </data>
-  <data name="DeletedCategoryNameConflict" xml:space="preserve">
-    <value>Ya creaste una categoría con el nombre "{0}" y estaba eliminada. Se acaba de restaurar y ahora podes visualizarla debajo.</value>
-  </data>
-  <data name="CategoryRequiredError" xml:space="preserve">
-    <value>La categoría es obligatoria.</value>
-  </data>
-  <data name="DateRequiredError" xml:space="preserve">
-    <value>La fecha es obligatoria.</value>
-  </data>
-  <data name="DescriptionRequiredError" xml:space="preserve">
-    <value>La descripción es obligatoria.</value>
-  </data>
-  <data name="GenericInvalidError" xml:space="preserve">
-    <value>El valor es invalido.</value>
-  </data>
-  <data name="GenericNumberError" xml:space="preserve">
-    <value>El valor debe ser numérico.</value>
-  </data>
-  <data name="NameMissingInCategory" xml:space="preserve">
-    <value>La categoría debe tener un nombre.</value>
-  </data>
-  <data name="UserIdMissingInCategory" xml:space="preserve">
-    <value>La categoría debe estar asignada a un usuario. (id faltante)</value>
-  </data>
-  <data name="NameRequiredError" xml:space="preserve">
-    <value>El nombre es obligatorio.</value>
-  </data>
-  <data name="DateFutureError" xml:space="preserve">
-    <value>La fecha no puede ser futura.</value>
-  </data>
-  <data name="ExpenseNotFoundError" xml:space="preserve">
-    <value>El gasto no fue encontrado. ({0})</value>
-  </data>
-  <data name="CategoryNotDeletedError" xml:space="preserve">
-    <value>La categoría con el nombre '{0}' no esta borrada, por lo que no fue restaurada.</value>
-  </data>
-  <data name="CategoryRestoredSuccess" xml:space="preserve">
-    <value>La categoría fue restaurada con éxito.</value>
+  <data name="ViewTitle" xml:space="preserve">
+    <value>Restore categories</value>
   </data>
 </root>

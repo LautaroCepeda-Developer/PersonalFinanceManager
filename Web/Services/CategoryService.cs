@@ -88,10 +88,31 @@ namespace Web.Services
             return OperationResult.Ok();
         }
 
+        public async Task<OperationResult> RestoreCategoryAsync(int categoryID)
+        {
+            var category = await _repo.GetByIdAsync(categoryID);
+            if (category is null)
+                return OperationResult.Fail(_localizer["CategoryNotFoundError", categoryID]);
+            if (!category.IsDeleted)
+                return OperationResult.Fail(_localizer["CategoryNotDeletedError", categoryID]);
+
+            category.IsDeleted = false;
+            _repo.Update(category);
+            await _repo.SaveChangesAsync();
+
+            return OperationResult.Ok(_localizer["CategoryRestoredSuccess", category.Name]);
+        }
+
         public async Task<IEnumerable<CategoryDTO>> GetUserCategoriesAsync(string userId)
         {
             if (string.IsNullOrEmpty(userId)) throw new ArgumentException("UserId must be provided to get user categories.", nameof(userId));
             return _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(await _repo.GetByUserIdAsync(userId));
+        }
+
+        public async Task<IEnumerable<CategoryDTO>> GetUserSoftDeletedCategoriesAsync(string userId)
+        {
+            if (string.IsNullOrEmpty(userId)) throw new ArgumentException("UserId must be provided to get user categories.", nameof(userId));
+            return _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(await _repo.GetSoftDeletedByUserIdAsync(userId));
         }
 
         public async Task<CategoryDTO?> GetCategoryByIdAsync(int categoryId)
@@ -122,5 +143,6 @@ namespace Web.Services
             return OperationResult.Ok();
 
         }
+
     }
 }
