@@ -83,11 +83,18 @@ canvas {
 
     // Chart 01
     const chart01Labels = @Html.Raw(Json.Serialize(Model.ExpensesByCategory.Select(x => x.Category)));
-    const chart01Data = {
+    const chart01HasData = chart01Labels.length > 0;
+    const chart01Data = chart01HasData ? {
         labels: chart01Labels,
         datasets: [{
             data: @Html.Raw(Json.Serialize(Model.ExpensesByCategory.Select(x=>x.Total))),
             backgroundColor: generateColors(chart01Labels.length)
+        }]
+    } : {
+        labels: ['@localizer["NoDataText"]'],
+        datasets: [{
+            data: [1],
+            backgroundColor: ['#e0e0e0']
         }]
     }
     
@@ -128,6 +135,6 @@ canvas {
     
     new Chart(chart01, { type: 'doughnut', data: chart01Data, options: {responsive: true}});
     new Chart(chart02, { type: 'line', data: chart02Data, options: {responsive: true}});
-    new Chart(chart03, { type: 'bar', data: chart03Data , options: {responsive:true, scales:{y:{beginAtZero:true}}}});
+    new Chart(chart03, { type: 'bar', data: chart03Data , options: {responsive:true, plugins: {legend: {labels:{boxWidth: 0}}}, scales:{y:{beginAtZero:true}}}});
 </script>
 

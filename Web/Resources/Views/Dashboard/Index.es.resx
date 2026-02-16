@@ -135,4 +135,7 @@
   <data name="Chart03DatasetLabel" xml:space="preserve">
     <value>Gastos Mensuales</value>
   </data>
+  <data name="NoDataText" xml:space="preserve">
+    <value>Sin datos</value>
+  </data>
 </root>
