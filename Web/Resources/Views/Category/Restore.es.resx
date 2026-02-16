@@ -120,6 +120,9 @@
   <data name="NameTableHeader" xml:space="preserve">
     <value>Nombre</value>
   </data>
+  <data name="NoCategoriesToRestoreText" xml:space="preserve">
+    <value>No hay categorías para restaurar.</value>
+  </data>
   <data name="RestoreCategoryButton" xml:space="preserve">
     <value>Restaurar</value>
   </data>
