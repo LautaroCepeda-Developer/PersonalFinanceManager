@@ -1,14 +1,16 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @model ExternalLoginsModel
 @{
-    ViewData["Title"] = "Manage your external logins";
+    ViewData["Title"] = localizer["Title"];
     ViewData["ActivePage"] = ManageNavPages.ExternalLogins;
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
 @if (Model.CurrentLogins?.Count > 0)
 {
-    <h3>Registered Logins</h3>
+    <h3>@localizer["RegisteredLoginsHeader"]</h3>
     <table class="table">
         <tbody>
             @foreach (var login in Model.CurrentLogins)
@@ -22,7 +24,7 @@
                                 <div>
                                     <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
                                     <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden" />
-                                    <button type="submit" class="btn btn-primary" title="Remove this @login.ProviderDisplayName login from your account">Remove</button>
+                                    <button type="submit" class="btn btn-primary" title="@localizer["DeleteLoginServiceTooltip", @login.ProviderDisplayName!]">@localizer["RemoveButton"]</button>
                                 </div>
                             </form>
                         }
@@ -38,14 +40,14 @@
 }
 @if (Model.OtherLogins?.Count > 0)
 {
-    <h4>Add another service to log in.</h4>
+    <h4>@localizer["AddAnotherServiceHeader"]</h4>
     <hr />
     <form id="link-login-form" asp-page-handler="LinkLogin" method="post" class="form-horizontal">
         <div id="socialLoginList">
             <p>
                 @foreach (var provider in Model.OtherLogins)
                 {
-                    <button id="@($"link-login-button-{provider.Name}")" type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                    <button id="@($"link-login-button-{provider.Name}")" type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="@localizer["AddLoginServiceTooltip", @provider.DisplayName!]">@provider.DisplayName</button>
                 }
             </p>
         </div>
