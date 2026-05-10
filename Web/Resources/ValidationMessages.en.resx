@@ -168,4 +168,25 @@
   <data name="CategoryRestoredSuccess" xml:space="preserve">
     <value>The category was restored succesfully.</value>
   </data>
+  <data name="EmailRequiredError" xml:space="preserve">
+    <value>The email is required.</value>
+  </data>
+  <data name="EmailInvalidError" xml:space="preserve">
+    <value>The email is invalid.</value>
+  </data>
+  <data name="PasswordRequiredError" xml:space="preserve">
+    <value>The password is required.</value>
+  </data>
+  <data name="2FACodeLengthError" xml:space="preserve">
+    <value>The {0} must be at least {2} and at max {1} characters long.</value>
+  </data>
+  <data name="RecoveryCodeRequiredError" xml:space="preserve">
+    <value>The code is required.</value>
+  </data>
+  <data name="PasswordLengthError" xml:space="preserve">
+    <value>The {0} must be at least {2} and at max {1} characters long.</value>
+  </data>
+  <data name="PhoneInvalidError" xml:space="preserve">
+    <value>The phone number is invalid.</value>
+  </data>
 </root>
