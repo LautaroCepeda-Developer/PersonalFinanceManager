@@ -4,21 +4,24 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Localization;
 using System.Globalization;
 using Web.DTOs.Expense;
 using Web.Models;
 using Web.Services;
 using Web.ViewModels;
 
+
 namespace Web.Controllers
 {
     [Authorize]
-    public class ExpenseController(IExpenseService service, IExpenseExportService exportService, ICategoryService categoryService, UserManager<IdentityUser> userManager) : Controller
+    public class ExpenseController(IExpenseService service, IExpenseExportService exportService, ICategoryService categoryService, IStringLocalizer<ExportHeaders> localizer, UserManager<IdentityUser> userManager) : Controller
     {
         private readonly IExpenseService _service = service;
         private readonly IExpenseExportService _exportService = exportService;
         private readonly ICategoryService _categoryService = categoryService;
         private readonly UserManager<IdentityUser> _userManager = userManager;
+        private readonly IStringLocalizer<ExportHeaders> _localizer = localizer;
 
         public async Task<IActionResult> Index(DateTime? from, DateTime? to, int? categoryId)
         {
@@ -203,7 +206,12 @@ namespace Web.Controllers
 
             string extension = vm.Format == "csv" ? "csv" : "xlsx";
 
-            return File(fileBytes, contentType, $"expenses_{DateTime.Now.ToString("d", CultureInfo.CurrentCulture)}.{extension}");
+            string dateFormat =
+                CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "es"
+                    ? "dd-MM-yyyy_HH-mm-ss"
+                    : "yyyy-MM-dd_HH-mm-ss";
+
+            return File(fileBytes, contentType, $"{_localizer["WorksheetName"]}_{DateTime.Now.ToString(dateFormat)}.{extension}");
         }
 
     }
