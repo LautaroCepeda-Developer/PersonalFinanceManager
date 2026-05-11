@@ -128,13 +128,9 @@ Git / GitHub
 
 El proyecto está en desarrollo. Las próximas etapas incluyen:
 
-Completar todos los gráficos del dashboard
+Revisión y testeo de funcionalidades.
 
-Mejorar la visualización de tablas
-
-Implementar exportación a Excel
-
-Optimizar UX/UI
+Hostear la base de datos y la aplicación para que pueda ser utilizada de forma publica
 
 ## 📄 Licencia
 
