@@ -1,0 +1,120 @@
+﻿@using Web.ViewModels;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+@model ExpenseExportViewModel
+@{
+    ViewData["Title"] = localizer["Title"];
+}
+
+<h2>@localizer["Title"]</h2>
+
+<form asp-action="Export" method="post">
+
+    <div class="row g-3">
+
+        <div class="col-md-6">
+            <label asp-for="From">@localizer["DateFrom"]</label>
+            <input asp-for="From" type="date" class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="To">@localizer["DateTo"]</label>
+            <input asp-for="To" type="date" class="form-control" placeholder="$" />
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="MinAmount">@localizer["AmountMin"]</label>
+            <input asp-for="MinAmount" class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="MaxAmount">@localizer["AmountMax"]</label>
+            <input asp-for="MaxAmount" class="form-control" />
+        </div>
+
+        <div class="col-12">
+            <div class="mb-3">
+
+                <label class="form-label">
+                    @localizer["Categories"]
+                </label>
+
+                <div class="d-flex gap-2 mb-2">
+
+                    <button type="button"
+                            class="btn btn-sm btn-outline-primary"
+                            id="selectAllCategories">
+                        @localizer["SelectAll"]
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-sm btn-outline-secondary"
+                            id="deselectAllCategories">
+                        @localizer["DeselectAll"]
+                    </button>
+
+                </div>
+
+                <div class="border rounded p-3">
+
+                    @foreach (var category in Model.Categories)
+                    {
+                        <div class="form-check">
+
+                            <input class="form-check-input category-checkbox"
+                                   type="checkbox"
+                                   name="SelectedCategoriesIds"
+                                   value="@category.Value"
+                                   checked />
+
+                            <label class="form-check-label">
+                                @category.Text
+                            </label>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-12">
+            <label asp-for="Format">@localizer["Format"]</label>
+
+            <select asp-for="Format" class="form-select">
+                <option value="xlsx">Excel (.xlsx)</option>
+                <option value="csv">CSV (.csv)</option>
+            </select>
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">
+        @localizer["ExportButton"]
+    </button>
+
+</form>
+
+<script>
+
+    const categoryCheckboxes =
+        document.querySelectorAll(".category-checkbox");
+
+    document
+        .getElementById("selectAllCategories")
+        .addEventListener("click", () => {
+
+            categoryCheckboxes.forEach(c => c.checked = true);
+
+        });
+
+    document
+        .getElementById("deselectAllCategories")
+        .addEventListener("click", () => {
+
+            categoryCheckboxes.forEach(c => c.checked = false);
+
+        });
+
+</script>

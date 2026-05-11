@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Globalization;
 using Web.DTOs.Expense;
 using Web.Models;
 using Web.Services;
@@ -12,9 +13,10 @@ using Web.ViewModels;
 namespace Web.Controllers
 {
     [Authorize]
-    public class ExpenseController(IExpenseService service, ICategoryService categoryService, UserManager<IdentityUser> userManager) : Controller
+    public class ExpenseController(IExpenseService service, IExpenseExportService exportService, ICategoryService categoryService, UserManager<IdentityUser> userManager) : Controller
     {
         private readonly IExpenseService _service = service;
+        private readonly IExpenseExportService _exportService = exportService;
         private readonly ICategoryService _categoryService = categoryService;
         private readonly UserManager<IdentityUser> _userManager = userManager;
 
@@ -146,8 +148,8 @@ namespace Web.Controllers
             var result = await _service.DeleteExpenseAsync(id);
 
             if (!result.Succeeded)
-                {
-                ModelState.AddModelError("Id",result.Message!);
+            {
+                ModelState.AddModelError("Id", result.Message!);
                 var expense = await _service.GetExpenseByIdAsync(id);
                 return View("Delete", expense);
             }
@@ -155,6 +157,54 @@ namespace Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Export()
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            var categories = await _categoryService.GetUserCategoriesAsync(user!.Id);
+
+            ExpenseExportViewModel vm = new()
+            {
+                Categories =
+                [
+                    .. categories.Select(c => new SelectListItem
+                    { 
+                        Value = c.Id.ToString(),
+                        Text = c.Name
+                    })    
+                ]
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Export(ExpenseExportViewModel vm)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            ExpenseExportDTO dto = new()
+            {
+                UserId = user!.Id,
+                From = vm.From,
+                To = vm.To,
+                MinAmount = vm.MinAmount,
+                MaxAmount = vm.MaxAmount,
+                CategoryIds = vm.SelectedCategoriesIds,
+                Format = vm.Format
+            };
+
+            byte[] fileBytes = await _exportService.ExportExpensesAsync(dto);
+
+            string contentType = vm.Format == "csv" ? "text/csv" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+            string extension = vm.Format == "csv" ? "csv" : "xlsx";
+
+            return File(fileBytes, contentType, $"expenses_{DateTime.Now.ToString("d", CultureInfo.CurrentCulture)}.{extension}");
+        }
 
     }
 }

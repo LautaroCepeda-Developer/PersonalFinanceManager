@@ -117,28 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NavHomeButton" xml:space="preserve">
-    <value>Inicio</value>
+  <data name="AmountMax" xml:space="preserve">
+    <value>Max amount</value>
   </data>
-  <data name="NavTitle" xml:space="preserve">
-    <value>Gestor de Finanzas</value>
+  <data name="AmountMin" xml:space="preserve">
+    <value>Min amount</value>
   </data>
-  <data name="NavPrivacyButton" xml:space="preserve">
-    <value>Privacidad</value>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
   </data>
-  <data name="NavExpensesButton" xml:space="preserve">
-    <value>Gastos</value>
+  <data name="DateFrom" xml:space="preserve">
+    <value>From</value>
   </data>
-  <data name="NavToggleButton_aria-label" xml:space="preserve">
-    <value>Alternar navegación</value>
+  <data name="DateTo" xml:space="preserve">
+    <value>To</value>
   </data>
-  <data name="NavCategoriesButton" xml:space="preserve">
-    <value>Categorías</value>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deselect all</value>
   </data>
-  <data name="NavDashboardButton" xml:space="preserve">
-    <value>Panel de control</value>
+  <data name="ExportButton" xml:space="preserve">
+    <value>Export</value>
   </data>
-  <data name="NavExportButton" xml:space="preserve">
-    <value>Exportar</value>
+  <data name="Format" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Export expenses</value>
   </data>
 </root>

@@ -138,4 +138,7 @@
   <data name="NavDashboardButton" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="NavExportButton" xml:space="preserve">
+    <value>Export</value>
+  </data>
 </root>

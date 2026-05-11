@@ -103,6 +103,23 @@ namespace Web.Repositories.Expenses
                 .ToListAsync();
         }
 
+        // Method used in export
+        public async Task<IEnumerable<Expense>> GetFilteredExpensesAsync(string userId, DateTime? from, DateTime? to, decimal? minAmount, decimal? maxAmount, List<int>? categoryIds)
+        {
+            var query = _db.Expenses
+                .Include(e => e.Category)
+                .Where(e => e.UserId == userId)
+                .AsQueryable();
+
+            if (from.HasValue) query = query.Where(e => e.Date >= from.Value);
+            if (to.HasValue) query = query.Where(e => e.Date <= to.Value);
+            if (minAmount.HasValue) query = query.Where(e => e.Amount >= minAmount.Value);
+            if (maxAmount.HasValue) query = query.Where(e => e.Amount <= maxAmount.Value);
+            if (categoryIds != null && categoryIds.Count != 0) query = query.Where(e => categoryIds.Contains(e.CategoryId));
+
+            return await query.OrderByDescending(e => e.Date).ToListAsync();
+        }
+
         public async Task<int> SaveChangesAsync() => await _db.SaveChangesAsync();
     }
 }

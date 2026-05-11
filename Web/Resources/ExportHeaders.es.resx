@@ -117,28 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NavHomeButton" xml:space="preserve">
-    <value>Inicio</value>
+  <data name="DateHeader" xml:space="preserve">
+    <value>Fecha</value>
   </data>
-  <data name="NavTitle" xml:space="preserve">
-    <value>Gestor de Finanzas</value>
+  <data name="CategoryHeader" xml:space="preserve">
+    <value>Categoría</value>
   </data>
-  <data name="NavPrivacyButton" xml:space="preserve">
-    <value>Privacidad</value>
+  <data name="DescriptionHeader" xml:space="preserve">
+    <value>Descripción</value>
   </data>
-  <data name="NavExpensesButton" xml:space="preserve">
+  <data name="AmountHeader" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="WorksheetName" xml:space="preserve">
     <value>Gastos</value>
-  </data>
-  <data name="NavToggleButton_aria-label" xml:space="preserve">
-    <value>Alternar navegación</value>
-  </data>
-  <data name="NavCategoriesButton" xml:space="preserve">
-    <value>Categorías</value>
-  </data>
-  <data name="NavDashboardButton" xml:space="preserve">
-    <value>Panel de control</value>
-  </data>
-  <data name="NavExportButton" xml:space="preserve">
-    <value>Exportar</value>
   </data>
 </root>

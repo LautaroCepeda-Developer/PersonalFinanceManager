@@ -69,6 +69,7 @@ builder.Services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfile>());
 // Expenses
 builder.Services.AddScoped<IExpenseRepository, EfExpenseRepository>();
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
+builder.Services.AddScoped<IExpenseExportService, ExpenseExportService>();
 
 // Categories
 builder.Services.AddScoped<ICategoryRepository, EfCategoryRepository>();
