@@ -42,8 +42,12 @@ namespace Web.Services
                     )
                 );
             }
+            sb.AppendLine(
+                $"{_localizer["TotalLabel"]}{separator}{separator}" +
+                expenses.Sum(e => e.Amount).ToString("N2", CultureInfo.CurrentCulture)
+            );
 
-            return Encoding.UTF8.GetBytes(sb.ToString());
+            return [.. Encoding.UTF8.GetPreamble(), .. Encoding.UTF8.GetBytes(sb.ToString())];
         }
 
         private byte[] GenerateExcel(IEnumerable<Expense> expenses)
@@ -88,6 +92,20 @@ namespace Web.Services
 
                 row++;
             }
+
+            decimal total = expenses.Sum(e => e.Amount);
+            // Total label
+            worksheet.Cell(row, 1).Value = _localizer["TotalLabel"].ToString();
+            var totalRange = worksheet.Range(row, 1, row, 2).Merge();
+            totalRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+            totalRange.Style.Font.Bold = true;
+            totalRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+
+            // Total amount
+            worksheet.Cell(row, 3).FormulaA1 = $"SUM(C2:C{row-1})";
+            worksheet.Cell(row, 3).Style.NumberFormat.Format = "0.00";
+            worksheet.Cell(row, 3).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+            worksheet.Cell(row, 3).Style.Fill.BackgroundColor = XLColor.LightGray;
 
             worksheet.Columns().AdjustToContents();
             worksheet.Rows().AdjustToContents();

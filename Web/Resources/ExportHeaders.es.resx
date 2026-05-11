@@ -132,4 +132,7 @@
   <data name="WorksheetName" xml:space="preserve">
     <value>Gastos</value>
   </data>
+  <data name="TotalLabel" xml:space="preserve">
+    <value>Total</value>
+  </data>
 </root>
