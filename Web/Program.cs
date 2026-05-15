@@ -13,6 +13,10 @@ using Web.Mapping;
 using Web.Repositories.Categories;
 using Web.Repositories.Expenses;
 using Web.Services;
+using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,13 +28,129 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews()
+builder.Services.AddControllersWithViews(options => 
+{
+    // Global authorization policy to require authenticated users by default
+    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
+    options.Filters.Add(new AuthorizeFilter(policy));
+})
     .AddViewLocalization()
     .AddDataAnnotationsLocalization(options => options.DataAnnotationLocalizerProvider = (type, factory) =>
     {
         return factory.Create("ValidationMessages", typeof(Program).Assembly.FullName!);
     });
 
+# region Rate Limiting Setup
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = 429; // Too Many Requests
+
+    options.OnRejected = async (context, token) =>
+    {
+        context.HttpContext.Response.StatusCode = 429;
+
+        var localizer =
+            context.HttpContext.RequestServices
+                .GetRequiredService<IStringLocalizer<SecurityMessages>>();
+
+        await context.HttpContext.Response.WriteAsync(
+            localizer["TooManyRequests"],
+            cancellationToken: token
+        );
+    };
+
+    // Export limiter
+    options.AddFixedWindowLimiter("export", limiterOptions =>
+    {
+        limiterOptions.PermitLimit = 3;
+        limiterOptions.Window = TimeSpan.FromMinutes(1);
+
+        limiterOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+
+        limiterOptions.QueueLimit = 0; // No queuing, reject immediately when limit is reached
+    });
+
+    // Expense creation limiter
+    options.AddFixedWindowLimiter("expense-create", limiterOptions =>
+    {
+        limiterOptions.PermitLimit = 15;
+        limiterOptions.Window = TimeSpan.FromMinutes(1);
+
+        limiterOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+
+        limiterOptions.QueueLimit = 0; // No queuing, reject immediately when limit is reached
+    });
+
+    // Expense edit limiter
+    options.AddFixedWindowLimiter("expense-edit", limiterOptions =>
+    {
+        limiterOptions.PermitLimit = 15;
+        limiterOptions.Window = TimeSpan.FromMinutes(1);
+
+        limiterOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+
+        limiterOptions.QueueLimit = 0; // No queuing, reject immediately when limit is reached
+    });
+
+    // Expense delete limiter
+    options.AddFixedWindowLimiter("expense-delete", limiterOptions =>
+    {
+        limiterOptions.PermitLimit = 20;
+        limiterOptions.Window = TimeSpan.FromMinutes(1);
+
+        limiterOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+
+        limiterOptions.QueueLimit = 0; // No queuing, reject immediately when limit is reached
+    });
+
+    // Login limiter
+    options.AddFixedWindowLimiter("login", limiterOptions => 
+    {
+        limiterOptions.PermitLimit = 5;
+        limiterOptions.Window = TimeSpan.FromMinutes(1);
+
+        limiterOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+
+        limiterOptions.QueueLimit = 0; // No queuing, reject immediately when limit is reached
+    });
+
+    // Register limiter
+    options.AddFixedWindowLimiter("register", limiterOptions =>
+    {
+        limiterOptions.PermitLimit = 5;
+        limiterOptions.Window = TimeSpan.FromMinutes(1);
+
+        limiterOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+
+        limiterOptions.QueueLimit = 0; // No queuing, reject immediately when limit is reached
+    });
+});
+#endregion
+
+#region Additional security setup (Headers & Identity options)
+// Cookie settings for authentication
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+
+    options.Cookie.SameSite = SameSiteMode.Strict;
+
+    options.SlidingExpiration = true;
+
+    options.ExpireTimeSpan = TimeSpan.FromDays(14);
+});
+
+// Identity options configuration for account lockout
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+    options.Lockout.AllowedForNewUsers = true;
+});
+#endregion
 
 #region Localization Setup
 builder.Services.AddLocalization(options => {
@@ -96,7 +216,21 @@ app.UseRequestLocalization();
 app.UseHttpsRedirection();
 app.UseRouting();
 
+
+app.UseRateLimiter();
+
 app.UseAuthorization();
+
+// Middleware to add security headers to all responses
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append("X-Frame-Options", "DENY");
+    context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Append("Referrer-Policy", "strict-origin-when-cross-origin");
+    context.Response.Headers.Append("X-XSS-Protection", "1; mode=block");
+
+    await next();
+});
 
 app.MapStaticAssets();
 

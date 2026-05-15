@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
 using Web.DTOs.Expense;
@@ -64,6 +65,7 @@ namespace Web.Controllers
             return View(model);
         }
 
+        [EnableRateLimiting("expense-create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ExpenseCreateViewModel viewModel)
@@ -126,6 +128,7 @@ namespace Web.Controllers
             return View(vm);
         }
 
+        [EnableRateLimiting("expense-edit")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ExpenseUpdateViewModel viewModel)
@@ -145,6 +148,7 @@ namespace Web.Controllers
             return View(expense);
         }
 
+        [EnableRateLimiting("expense-delete")]
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
@@ -183,6 +187,7 @@ namespace Web.Controllers
             return View(vm);
         }
 
+        [EnableRateLimiting("export")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Export(ExpenseExportViewModel vm)
@@ -202,7 +207,7 @@ namespace Web.Controllers
 
             byte[] fileBytes = await _exportService.ExportExpensesAsync(dto);
 
-            string contentType = vm.Format == "csv" ? "text/csv" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            string contentType = vm.Format == "csv" ? "text/csv; charset=utf-8" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
             string extension = vm.Format == "csv" ? "csv" : "xlsx";
 
