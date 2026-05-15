@@ -1,7 +1,7 @@
 # Personal Finance Manager
 ### ⚠️ Proyecto en proceso ⚠️
 
-Este proyecto se encuentra actualmente en desarrollo activo. Algunas funcionalidades ya están implementadas y otras están planificadas para las siguientes etapas.
+Este proyecto se encuentra actualmente en desarrollo activo. Las funcionalidades se encuentran implementadas y estan en proceso de testeo.
 
 ## 📌 Descripción general
 
@@ -46,6 +46,8 @@ Asociación de gastos a categorías
 
 Filtrado por rango de fechas (desde / hasta)
 
+Filtrado por rango de valores (minimo / maximo)
+
 Filtrado por categoría
 
 Combinación de filtros
@@ -54,33 +56,27 @@ Combinación de filtros
 
 Gráfico de gastos por categoría (implementado)
 
-Gráfico de evolución temporal (en proceso)
+Gráficos mensuales (implementado)
 
-Gráficos mensuales (en proceso)
+Gráficos anuales (implementado)
 
-Gráficos anuales (en proceso)
-
-Gráficos semanales (en proceso)
-
-Múltiples gráficos en dashboard (en proceso)
+Múltiples gráficos en dashboard (implementado)
 
 ### 📈 Visualización de datos
 
 Tablas HTML con Bootstrap
 
-Tablas más dinámicas y responsivas (en proceso)
-
 ### 📤 Exportación de datos
 
-Exportar gastos a Excel (en proceso)
+Exportar gastos a Excel (implementado)
 
-Exportación diaria (en proceso)
+Exportación diaria (implementado)
 
-Exportación mensual (en proceso)
+Exportación mensual (implementado)
 
-Exportación anual (en proceso)
+Exportación anual (implementado)
 
-Exportación total (en proceso)
+Exportación total (implementado)
 
 ### 🧱 Arquitectura
 Modelo-Vista-Controlador (MVC)
@@ -106,6 +102,8 @@ PostgreSQL
 
 Identity
 
+ClosedXML
+
 Localización (Inglés y Español con IStringLocalizer)
 
 ### Frontend
@@ -130,13 +128,9 @@ Git / GitHub
 
 El proyecto está en desarrollo. Las próximas etapas incluyen:
 
-Completar todos los gráficos del dashboard
+Revisión y testeo de funcionalidades.
 
-Mejorar la visualización de tablas
-
-Implementar exportación a Excel
-
-Optimizar UX/UI
+Hostear la base de datos y la aplicación para que pueda ser utilizada de forma publica
 
 ## 📄 Licencia
 
