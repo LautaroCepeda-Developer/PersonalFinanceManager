@@ -117,13 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LoginSuggestion" xml:space="preserve">
+    <value>Inicie sesión para continuar.</value>
+  </data>
+  <data name="LogOutButton" xml:space="preserve">
+    <value>Cerrar sesión</value>
+  </data>
   <data name="ViewTitle" xml:space="preserve">
     <value>Inicio</value>
   </data>
   <data name="WelcomeText" xml:space="preserve">
     <value>Bienvenid@</value>
-  </data>
-  <data name="LoginSuggestion" xml:space="preserve">
-    <value>Inicie sesión para continuar.</value>
   </data>
 </root>

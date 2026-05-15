@@ -1,6 +1,196 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+@{
+    ViewData["Title"] = localizer["PrivacyTitle"];
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container py-5">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4 p-md-5">
+
+            <h1 class="mb-4 text-center fw-bold">
+                @localizer["PrivacyTitle"]
+            </h1>
+
+            <p class="text-center text-muted small mb-4">
+                @localizer["PrivacyLastUpdate00-0"] @localizer["PrivacyLastUpdate00-1"]
+            </p>
+
+            <p class="lead text-muted">
+                @localizer["PrivacyDisclaimer01"]
+                @localizer["PrivacyDisclaimer02"]
+                @localizer["PrivacyDisclaimer03"]
+            </p>
+
+            <hr class="my-4" />
+
+            <section class="mb-5">
+                <h2 class="h4 fw-semibold mb-3">
+                    @localizer["PrivacyRecopilatedInformation00-0"]
+                </h2>
+
+                <p>
+                    @localizer["PrivacyRecopilatedInformation00-1"]
+                </p>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        @localizer["PrivacyRecopilatedInformation01-1"]
+                        @localizer["PrivacyRecopilatedInformation01-2"]
+                    </li>
+
+                    <li class="list-group-item">
+                        @localizer["PrivacyRecopilatedInformation02-1"]
+                    </li>
+
+                    <li class="list-group-item">
+                        @localizer["PrivacyRecopilatedInformation03-1"]
+                    </li>
+                </ul>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h4 fw-semibold mb-3">
+                    @localizer["PrivacyHowDataIsUsed00-0"]
+                </h2>
+
+                <p>
+                    @localizer["PrivacyHowDataIsUsed00-1"]
+                </p>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        @localizer["PrivacyHowDataIsUsed01-1"]
+                    </li>
+
+                    <li class="list-group-item">
+                        @localizer["PrivacyHowDataIsUsed02-1"]
+                    </li>
+
+                    <li class="list-group-item">
+                        @localizer["PrivacyHowDataIsUsed03-1"]
+                    </li>
+
+                    <li class="list-group-item">
+                        @localizer["PrivacyHowDataIsUsed04-1"]
+                    </li>
+                </ul>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h4 fw-semibold mb-3">
+                    @localizer["PrivacyDataProtection00-0"]
+                </h2>
+
+                <p>
+                    @localizer["PrivacyDataProtection01-1"]
+                    @localizer["PrivacyDataProtection01-2"]
+                    @localizer["PrivacyDataProtection01-3"]
+                </p>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h4 fw-semibold mb-3">
+                    @localizer["PrivacyThirdParty00-0"]
+                </h2>
+
+                <p>
+                    @localizer["PrivacyThirdParty01-1"]
+                    @localizer["PrivacyThirdParty01-2"]
+                </p>
+
+                <p>
+                    @localizer["PrivacyThirdParty02-1"]
+                    @localizer["PrivacyThirdParty02-2"]
+                    @localizer["PrivacyThirdParty02-3"]
+                </p>
+
+                <p>
+                    @localizer["PrivacyThirdParty03-1"]
+                    @localizer["PrivacyThirdParty03-2"]
+                    @localizer["PrivacyThirdParty03-3"]
+                </p>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h4 fw-semibold mb-3">
+                    @localizer["PrivacyCookies00-0"]
+                </h2>
+
+                <p>
+                    @localizer["PrivacyCookies01-1"]
+                    @localizer["PrivacyCookies01-2"]
+                    @localizer["PrivacyCookies01-3"]
+                </p>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h4 fw-semibold mb-3">
+                    @localizer["PrivacyDataOwnership00-0"]
+                </h2>
+
+                <p>
+                    @localizer["PrivacyDataOwnership01-1"]
+                    @localizer["PrivacyDataOwnership01-2"]
+                </p>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h4 fw-semibold mb-3">
+                    @localizer["PrivacyChanges00-0"]
+                </h2>
+
+                <p>
+                    @localizer["PrivacyChanges01-1"]
+                    @localizer["PrivacyChanges01-2"]
+                    @localizer["PrivacyChanges01-3"]
+                </p>
+            </section>
+
+            <section>
+                <h2 class="h4 fw-semibold mb-3">
+                    @localizer["PrivacyContact00-0"]
+                </h2>
+
+                <p class="mb-0">
+                    @localizer["PrivacyContact01-1"]
+                    @localizer["PrivacyContact01-2"]
+                </p>
+                <div class="input-group mt-3">
+                    <input type="text"
+                           class="form-control"
+                           value="lautarocepeda.developer@gmail.com"
+                           readonly>
+
+                    <button class="btn btn-outline-secondary"
+                            type="button"
+                            onclick="navigator.clipboard.writeText('lautarocepeda.developer@gmail.com')">
+                        @localizer["PrivacyContactEmailCopyButton"]
+                    </button>
+                </div>
+                <div class="d-flex justify-content-center gap-3 mt-4">
+
+                    <a href="mailto:lautarocepeda.developer@gmail.com"
+                       target=""
+                       class="btn btn-danger">
+                        Email
+                    </a>
+
+                    <a href="https://github.com/LautaroCepeda-Developer"
+                       target="_blank"
+                       class="btn btn-dark">
+                        GitHub
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/lautaro-cepeda/"
+                       target="_blank"
+                       class="btn btn-primary">
+                        LinkedIn
+                    </a>
+
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>

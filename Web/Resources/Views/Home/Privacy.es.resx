@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PrivacyChanges00-0" xml:space="preserve">
+    <value>Cambios en esta política</value>
+  </data>
+  <data name="PrivacyChanges01-1" xml:space="preserve">
+    <value>Esta política de privacidad podrá actualizarse en el futuro</value>
+  </data>
+  <data name="PrivacyChanges01-2" xml:space="preserve">
+    <value>para reflejar nuevas funcionalidades, mejoras de seguridad</value>
+  </data>
+  <data name="PrivacyChanges01-3" xml:space="preserve">
+    <value>o requisitos legales.</value>
+  </data>
+  <data name="PrivacyContact00-0" xml:space="preserve">
+    <value>Contacto</value>
+  </data>
+  <data name="PrivacyContact01-1" xml:space="preserve">
+    <value>Si tiene preguntas sobre esta política de privacidad,</value>
+  </data>
+  <data name="PrivacyContact01-2" xml:space="preserve">
+    <value>puede contactar al desarrollador de la aplicación.</value>
+  </data>
+  <data name="PrivacyContactEmailCopyButton" xml:space="preserve">
+    <value>Copiar</value>
+  </data>
+  <data name="PrivacyCookies00-0" xml:space="preserve">
+    <value>Cookies</value>
+  </data>
+  <data name="PrivacyCookies01-1" xml:space="preserve">
+    <value>Las cookies de autenticación pueden utilizarse para mantener</value>
+  </data>
+  <data name="PrivacyCookies01-2" xml:space="preserve">
+    <value>sesiones activas y garantizar el acceso seguro a las áreas</value>
+  </data>
+  <data name="PrivacyCookies01-3" xml:space="preserve">
+    <value>protegidas de la aplicación.</value>
+  </data>
+  <data name="PrivacyDataOwnership00-0" xml:space="preserve">
+    <value>Propiedad de los datos</value>
+  </data>
+  <data name="PrivacyDataOwnership01-1" xml:space="preserve">
+    <value>Los usuarios conservan la propiedad de la información</value>
+  </data>
+  <data name="PrivacyDataOwnership01-2" xml:space="preserve">
+    <value>financiera que crean dentro de la aplicación.</value>
+  </data>
+  <data name="PrivacyDataProtection00-0" xml:space="preserve">
+    <value>Protección de datos</value>
+  </data>
+  <data name="PrivacyDataProtection01-1" xml:space="preserve">
+    <value>Se implementan medidas de seguridad razonables para proteger</value>
+  </data>
+  <data name="PrivacyDataProtection01-2" xml:space="preserve">
+    <value>los datos almacenados, incluyendo autenticación, autorización,</value>
+  </data>
+  <data name="PrivacyDataProtection01-3" xml:space="preserve">
+    <value>limitación de solicitudes (rate limiting) y cookies seguras.</value>
+  </data>
+  <data name="PrivacyDisclaimer01" xml:space="preserve">
+    <value>Esta aplicación almacena y procesa información financiera personal</value>
+  </data>
+  <data name="PrivacyDisclaimer02" xml:space="preserve">
+    <value>proporcionada por usuarios autenticados con el objetivo de ofrecer</value>
+  </data>
+  <data name="PrivacyDisclaimer03" xml:space="preserve">
+    <value>funcionalidades de gestión de gastos y visualización de datos.</value>
+  </data>
+  <data name="PrivacyHowDataIsUsed00-0" xml:space="preserve">
+    <value>Uso de la información</value>
+  </data>
+  <data name="PrivacyHowDataIsUsed00-1" xml:space="preserve">
+    <value>La información recopilada se utiliza exclusivamente para:</value>
+  </data>
+  <data name="PrivacyHowDataIsUsed01-1" xml:space="preserve">
+    <value>Proporcionar acceso a la aplicación.</value>
+  </data>
+  <data name="PrivacyHowDataIsUsed02-1" xml:space="preserve">
+    <value>Gestionar gastos personales y categorías.</value>
+  </data>
+  <data name="PrivacyHowDataIsUsed03-1" xml:space="preserve">
+    <value>Generar gráficos, estadísticas y exportaciones.</value>
+  </data>
+  <data name="PrivacyHowDataIsUsed04-1" xml:space="preserve">
+    <value>Mejorar la seguridad y el rendimiento de la aplicación.</value>
+  </data>
+  <data name="PrivacyLastUpdate00-0" xml:space="preserve">
+    <value>Última actualización:</value>
+  </data>
+  <data name="PrivacyLastUpdate00-1" xml:space="preserve">
+    <value>Mayo 2026</value>
+  </data>
+  <data name="PrivacyRecopilatedInformation00-0" xml:space="preserve">
+    <value>Información recopilada</value>
+  </data>
+  <data name="PrivacyRecopilatedInformation00-1" xml:space="preserve">
+    <value>La aplicación puede almacenar:</value>
+  </data>
+  <data name="PrivacyRecopilatedInformation01-1" xml:space="preserve">
+    <value>Información de la cuenta del usuario</value>
+  </data>
+  <data name="PrivacyRecopilatedInformation01-2" xml:space="preserve">
+    <value>(correo electrónico y datos de autenticación).</value>
+  </data>
+  <data name="PrivacyRecopilatedInformation02-1" xml:space="preserve">
+    <value>Registros de gastos creados por los usuarios.</value>
+  </data>
+  <data name="PrivacyRecopilatedInformation03-1" xml:space="preserve">
+    <value>Categorías y datos financieros asociados a la cuenta.</value>
+  </data>
+  <data name="PrivacyThirdParty00-0" xml:space="preserve">
+    <value>Servicios de terceros</value>
+  </data>
+  <data name="PrivacyThirdParty01-1" xml:space="preserve">
+    <value>Esta aplicación puede utilizar servicios de autenticación de terceros,</value>
+  </data>
+  <data name="PrivacyThirdParty01-2" xml:space="preserve">
+    <value>como Google, Facebook, u otros, para permitir a los usuarios iniciar sesión.</value>
+  </data>
+  <data name="PrivacyThirdParty02-1" xml:space="preserve">
+    <value>En estos casos, únicamente se utilizan los datos mínimos necesarios</value>
+  </data>
+  <data name="PrivacyThirdParty02-2" xml:space="preserve">
+    <value>para autenticar la cuenta del usuario, como el correo electrónico</value>
+  </data>
+  <data name="PrivacyThirdParty02-3" xml:space="preserve">
+    <value>y la información básica del perfil proporcionada por dichos servicios.</value>
+  </data>
+  <data name="PrivacyThirdParty03-1" xml:space="preserve">
+    <value>La aplicación no vende ni comparte información financiera personal</value>
+  </data>
+  <data name="PrivacyThirdParty03-2" xml:space="preserve">
+    <value>con terceros fuera de los servicios estrictamente necesarios para</value>
+  </data>
+  <data name="PrivacyThirdParty03-3" xml:space="preserve">
+    <value>autenticación, hosting o infraestructura.</value>
+  </data>
+  <data name="PrivacyTitle" xml:space="preserve">
+    <value>Política de Privacidad</value>
+  </data>
+</root>

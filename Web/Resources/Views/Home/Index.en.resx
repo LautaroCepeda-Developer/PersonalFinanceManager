@@ -120,6 +120,9 @@
   <data name="LoginSuggestion" xml:space="preserve">
     <value>Log in to continue.</value>
   </data>
+  <data name="LogOutButton" xml:space="preserve">
+    <value>Log out</value>
+  </data>
   <data name="ViewTitle" xml:space="preserve">
     <value>Home</value>
   </data>

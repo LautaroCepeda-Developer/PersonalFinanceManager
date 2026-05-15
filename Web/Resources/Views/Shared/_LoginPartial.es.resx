@@ -123,7 +123,7 @@
   <data name="LogInButton" xml:space="preserve">
     <value>Iniciar sesión</value>
   </data>
-  <data name="LogoutButton" xml:space="preserve">
+  <data name="LogOutButton" xml:space="preserve">
     <value>Cerrar sesión</value>
   </data>
   <data name="RegisterButton" xml:space="preserve">
