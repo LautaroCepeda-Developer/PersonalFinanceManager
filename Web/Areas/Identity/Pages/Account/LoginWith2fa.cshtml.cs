@@ -2,15 +2,16 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 
 namespace Web.Areas.Identity.Pages.Account
 {
@@ -19,15 +20,18 @@ namespace Web.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LoginWith2faModel> _logger;
+        private readonly IStringLocalizer<ValidationMessages> _localizer;
 
         public LoginWith2faModel(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
-            ILogger<LoginWith2faModel> logger)
+            ILogger<LoginWith2faModel> logger,
+            IStringLocalizer<ValidationMessages> localizer)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -62,14 +66,14 @@ namespace Web.Areas.Identity.Pages.Account
             [Required]
             [StringLength(7, ErrorMessage = "2FACodeLengthError", MinimumLength = 6)]
             [DataType(DataType.Text)]
-            [Display(Name = "Authenticator code")]
+            [Display(Name = "AuthCodeDisplay")]
             public string TwoFactorCode { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Display(Name = "Remember this machine")]
+            [Display(Name = "RememberThisMachineDisplay")]
             public bool RememberMachine { get; set; }
         }
 
@@ -123,7 +127,7 @@ namespace Web.Areas.Identity.Pages.Account
             else
             {
                 _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
+                ModelState.AddModelError(string.Empty, _localizer["InvalidAuthCode"]);
                 return Page();
             }
         }

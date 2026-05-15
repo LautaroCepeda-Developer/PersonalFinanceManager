@@ -2,13 +2,14 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace Web.Areas.Identity.Pages.Account.Manage
 {
@@ -17,15 +18,19 @@ namespace Web.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly IStringLocalizer<ValidationMessages> _localizer;
 
         public DeletePersonalDataModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            IStringLocalizer<ValidationMessages> localizer
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -81,7 +86,7 @@ namespace Web.Areas.Identity.Pages.Account.Manage
             {
                 if (!await _userManager.CheckPasswordAsync(user, Input.Password))
                 {
-                    ModelState.AddModelError(string.Empty, "Incorrect password.");
+                    ModelState.AddModelError(string.Empty, _localizer["IncorrectPassword"]);
                     return Page();
                 }
             }

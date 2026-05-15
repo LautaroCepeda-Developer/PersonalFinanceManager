@@ -85,10 +85,10 @@ namespace Web.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "PasswordRequiredError")]
             [StringLength(100, ErrorMessage = "PasswordLengthError", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "PasswordDisplay")]
             public string Password { get; set; }
 
             /// <summary>
@@ -96,8 +96,8 @@ namespace Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "PasswordConfirmDisplay")]
+            [Compare("Password", ErrorMessage = "PasswordCompareError")]
             public string ConfirmPassword { get; set; }
         }
 

@@ -189,4 +189,58 @@
   <data name="PhoneInvalidError" xml:space="preserve">
     <value>The phone number is invalid.</value>
   </data>
+  <data name="PasswordCompareError" xml:space="preserve">
+    <value>The password and confirmation password do not match.</value>
+  </data>
+  <data name="PasswordDisplay" xml:space="preserve">
+    <value>password</value>
+  </data>
+  <data name="PasswordConfirmDisplay" xml:space="preserve">
+    <value>confirm password</value>
+  </data>
+  <data name="RememberMeDisplay" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
+  <data name="CurrentPasswordDisplay" xml:space="preserve">
+    <value>current password</value>
+  </data>
+  <data name="NewPasswordDisplay" xml:space="preserve">
+    <value>new password</value>
+  </data>
+  <data name="NewPasswordCompareError" xml:space="preserve">
+    <value>The new password and confirmation password do not match.</value>
+  </data>
+  <data name="NewEmailDisplay" xml:space="preserve">
+    <value>new email</value>
+  </data>
+  <data name="NewPasswordConfirmDisplay" xml:space="preserve">
+    <value>comfirm new password</value>
+  </data>
+  <data name="AuthCodeDisplay" xml:space="preserve">
+    <value>authenticator code</value>
+  </data>
+  <data name="RememberThisMachineDisplay" xml:space="preserve">
+    <value>Remember this machine</value>
+  </data>
+  <data name="RecoveryCodeDisplay" xml:space="preserve">
+    <value>recovery code</value>
+  </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Invalid login attempt.</value>
+  </data>
+  <data name="IncorrectPassword" xml:space="preserve">
+    <value>Incorrect password.</value>
+  </data>
+  <data name="InvalidVerificationCode" xml:space="preserve">
+    <value>Verification code is invalid.</value>
+  </data>
+  <data name="InvalidAuthCode" xml:space="preserve">
+    <value>Invalid authenticator code.</value>
+  </data>
+  <data name="InvalidRecoveryCode" xml:space="preserve">
+    <value>Invalid recovery code entered.</value>
+  </data>
+  <data name="VerificationEmailSent" xml:space="preserve">
+    <value>Verification email sent. Please check your email.</value>
+  </data>
 </root>

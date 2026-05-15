@@ -69,7 +69,7 @@ namespace Web.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [Required(ErrorMessage = "EmailRequiredError")]
             [EmailAddress(ErrorMessage = "EmailInvalidError")]
-            [Display(Name = "New email")]
+            [Display(Name = "NewEmailDisplay")]
             public string NewEmail { get; set; }
         }
 

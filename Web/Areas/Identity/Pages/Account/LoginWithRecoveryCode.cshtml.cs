@@ -2,14 +2,15 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 namespace Web.Areas.Identity.Pages.Account
 {
     public class LoginWithRecoveryCodeModel : PageModel
@@ -17,15 +18,18 @@ namespace Web.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LoginWithRecoveryCodeModel> _logger;
+        private readonly IStringLocalizer<ValidationMessages> _localizer;
 
         public LoginWithRecoveryCodeModel(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
-            ILogger<LoginWithRecoveryCodeModel> logger)
+            ILogger<LoginWithRecoveryCodeModel> logger,
+            IStringLocalizer<ValidationMessages> localizer)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -54,7 +58,7 @@ namespace Web.Areas.Identity.Pages.Account
             [BindProperty]
             [Required(ErrorMessage = "RecoveryCodeRequiredError")]
             [DataType(DataType.Text)]
-            [Display(Name = "Recovery Code")]
+            [Display(Name = "RecoveryCodeDisplay")]
             public string RecoveryCode { get; set; }
         }
 
@@ -104,7 +108,7 @@ namespace Web.Areas.Identity.Pages.Account
             else
             {
                 _logger.LogWarning("Invalid recovery code entered for user with ID '{UserId}' ", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid recovery code entered.");
+                ModelState.AddModelError(string.Empty, _localizer["InvalidRecoveryCode"]);
                 return Page();
             }
         }

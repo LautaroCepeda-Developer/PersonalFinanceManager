@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Localization;
 
 namespace Web.Areas.Identity.Pages.Account
 {
@@ -21,11 +22,13 @@ namespace Web.Areas.Identity.Pages.Account
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IStringLocalizer<ValidationMessages> _localizer;
 
-        public ResendEmailConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender emailSender)
+        public ResendEmailConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender emailSender, IStringLocalizer<ValidationMessages> localizer)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -64,7 +67,7 @@ namespace Web.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+                ModelState.AddModelError(string.Empty, _localizer["VerificationEmailSent"]);
                 return Page();
             }
 
@@ -81,7 +84,7 @@ namespace Web.Areas.Identity.Pages.Account
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-            ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+            ModelState.AddModelError(string.Empty, _localizer["VerificationEmailSent"]);
             return Page();
         }
     }

@@ -51,7 +51,7 @@ namespace Web.Areas.Identity.Pages.Account.Manage
             [Required(ErrorMessage = "PasswordRequiredError")]
             [StringLength(100, ErrorMessage = "PasswordLengthError", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "New password")]
+            [Display(Name = "NewPasswordDisplay")]
             public string NewPassword { get; set; }
 
             /// <summary>
@@ -59,8 +59,8 @@ namespace Web.Areas.Identity.Pages.Account.Manage
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Display(Name = "NewPasswordConfirmDisplay")]
+            [Compare("NewPassword", ErrorMessage = "NewPasswordCompareError")]
             public string ConfirmPassword { get; set; }
         }
 

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.Extensions.Localization;
 
 namespace Web.Areas.Identity.Pages.Account
 {
@@ -23,11 +24,13 @@ namespace Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IStringLocalizer<ValidationMessages> _localizer;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, IStringLocalizer<ValidationMessages> localizer)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -82,7 +85,7 @@ namespace Web.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Display(Name = "Remember me?")]
+            [Display(Name = "RememberMeDisplay")]
             public bool RememberMe { get; set; }
         }
 
@@ -131,7 +134,7 @@ namespace Web.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, _localizer["InvalidLoginAttempt"]);
                     return Page();
                 }
             }
